@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/29 22:30:25 by abazerou          #+#    #+#             */
-/*   Updated: 2022/12/31 23:57:05 by abazerou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 char	*read_line(char *save, int fd)
 {
@@ -96,17 +84,17 @@ char	*left_line(char *save)
 
 char	*get_next_line(int fd)
 {
-	static char	*save[10240];
+	static char	*save;
 	char		*res;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 10240)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	save[fd] = read_line(save[fd], fd);
-	if (!save[fd])
+	save = read_line(save, fd);
+	if (!save)
 		return (NULL);
-	res = first_line(save[fd]);
+	res = first_line(save);
 	if (!res || res[0] == '\0')
-		return (free(res), free(save[fd]), NULL);
-	save[fd] = left_line(save[fd]);
+		return (free(res), NULL);
+	save = left_line(save);
 	return (res);
 }
