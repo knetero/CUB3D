@@ -50,6 +50,7 @@ void    check_id_range(t_var *v, int i , int j)
     int id_number;
     char *s;
     int start;
+    int n = 0;
 
     start = j;
     while (v->new_map[i][j] && v->new_map[i][j] != ' ')
@@ -57,14 +58,23 @@ void    check_id_range(t_var *v, int i , int j)
     s = ft_substr(v->new_map[i], start, j);
     numbers = ft_split(s, ',');
     start = 0;
-    while(numbers[start])
+    while(numbers[n])
     {
-        //CONDITION 3LA QBEL (C ,,)
-        if (ft_strcmp(numbers[start], "  ") == 0)
+        printf("------------------ %s\n", numbers[n]);
+        if (ft_strcmp(numbers[n], "  ") == 0)
         {
             ft_freetab(numbers);
             ft_puterror("Error: in rgb numbers\n", 2);
         }
+        n++;
+    }
+    if (n != 3)
+    {
+        ft_freetab(numbers);
+        ft_puterror("Error: in rgb numbers\n", 2);
+    }
+    while(numbers[start])
+    {
         id_number = ft_atoi(numbers[start]);
         if (id_number < 0 || id_number > 255)
         {

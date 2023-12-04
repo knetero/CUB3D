@@ -5,7 +5,7 @@
 #include "stdlib.h"
 #include <fcntl.h>
 #include "get_next_line/get_next_line.h"
-#include "Libft/libft.h"
+
 
 
 typedef struct s_var
