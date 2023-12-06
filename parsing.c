@@ -173,16 +173,20 @@ void is_path_valid(t_var *v)
     printf("--------> %s\n", s[3]);
 
     int fd0 = open(s[0], O_RDONLY);
-    if (fd0 == -1)
+    int fd00 = open(s[0], O_DIRECTORY);
+    if (fd0 == -1 || fd00 != -1)
         ft_puterror("Error: Failed to open file path 0\n", 2);
     int fd1 = open(s[1], O_RDONLY);
-    if (fd1 == -1)
+    int fd01 = open(s[1], O_DIRECTORY);
+    if (fd1 == -1 || fd01 != -1)
         ft_puterror("Error: Failed to open file path 1\n", 2);
     int fd2 = open(s[2], O_RDONLY);
-    if (fd2 == -1)
+    int fd02 = open(s[2], O_DIRECTORY);
+    if (fd2 == -1 || fd02 != -1)
         ft_puterror("Error: Failed to open file path 2\n", 2);
-    int fd3 = open(s[3], O_RDONLY);
-    if (fd3 == -1)
+    int fd3 = open(s[3], O_RDONLY | O_RDWR);
+    int fd03 = open(s[3], O_DIRECTORY);
+    if (fd3 == -1 || fd03 != -1)
         ft_puterror("Error: Failed to open file path 3\n", 2);
 
 }
@@ -259,8 +263,6 @@ void    get_player_pos(t_var *v)
             break;
         i++;
     }
-    // printf("----------------->  %d\n", i);
-    // printf("**player pos = %d\n", v->player_pos);
 }
 
 void    parsing(t_var *v)

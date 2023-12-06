@@ -3,9 +3,9 @@ SO               ./textures/SO
 WE       ./textures/WE
 EA            ./textures/EA
 
+C 8,255,255
+F 4,0,4
 
-C 3,45,0
-F 55,8,0
 
 
         1111111111111111111111111
