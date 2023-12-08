@@ -5,9 +5,9 @@
 #include "stdlib.h"
 #include <fcntl.h>
 #include "get_next_line/get_next_line.h"
+#include "/Users/abazerou/Desktop/MLX42/include/MLX42/MLX42.h"
 
-
-
+//******** PARSING STRUCT *****************
 typedef struct s_var
 {
     char **map;
@@ -22,11 +22,24 @@ typedef struct s_var
     int map_len;
     int map_pos;
     int player_pos;
+    int flag_F;
+    int flag_C;
     size_t big_line;
     size_t len_s;
 }t_var;
 
+//******** MLX STRUCT *****************
+typedef struct s_mlx
+{
+    mlx_t* mlx;
+    mlx_image_t* image;
+    int x;
+    int y;
+    t_var *v;
 
+}t_mlx;
+
+//************** PARSING *****************
 void    parsing(t_var *v);
 void	ft_puterror(char *s, int fd);
 void    check_ex(char *s);
@@ -50,6 +63,8 @@ int     check_digit(char **str, int i, int j);
 int	    ft_isdigit(int c);
 char	**ft_split(char const *s, char c);
 int	    ft_atoi(const char *str);
+void    count_id(t_var *v, int i, int j);
+void    start_parser(t_var *v, int i, int j);
 
 
 #endif

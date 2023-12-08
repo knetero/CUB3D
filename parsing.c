@@ -44,10 +44,28 @@ int check_after_d(char **str, int i, int j)
     return (0);
 }
 
-void    check_id_range(t_var *v, int i , int j)
+void    is_range_valid(char **numbers)
+{
+    int i;
+    int id_number;
+
+    i = 0;
+    id_number = 0;
+    while (numbers[i])
+    {
+        id_number = ft_atoi(numbers[i]);
+        if (id_number < 0 || id_number > 255)
+        {
+            ft_freetab(numbers);
+            ft_puterror("Error: in rgb numbers\n", 2);
+        }
+        i++;
+    }
+}
+
+void    check_rgb_range(t_var *v, int i , int j)
 {
     char **numbers;
-    int id_number;
     char *s;
     int start;
     int n = 0;
@@ -57,10 +75,9 @@ void    check_id_range(t_var *v, int i , int j)
         j++;
     s = ft_substr(v->new_map[i], start, j);
     numbers = ft_split(s, ',');
-    start = 0;
+    free(s);
     while(numbers[n])
     {
-        printf("------------------ %s\n", numbers[n]);
         if (ft_strcmp(numbers[n], "  ") == 0)
         {
             ft_freetab(numbers);
@@ -73,55 +90,55 @@ void    check_id_range(t_var *v, int i , int j)
         ft_freetab(numbers);
         ft_puterror("Error: in rgb numbers\n", 2);
     }
-    while(numbers[start])
-    {
-        id_number = ft_atoi(numbers[start]);
-        if (id_number < 0 || id_number > 255)
-        {
-            ft_freetab(numbers);
-            ft_puterror("Error: in rgb numbers\n", 2);
-        }
-        start++;
-    }
+    is_range_valid(numbers);
     ft_freetab(numbers);
 }
 
+void    start_parser(t_var *v, int i, int j)
+{
+    int start;
+
+    start = 0;
+    count_id(v, i, j);
+    if (is_comma(v->new_map, i, j) == 1)
+        ft_puterror("Error: in rgb numbers\n", 2);
+    j++;
+    while(v->new_map[i][j] && v->new_map[i][j] == ' ')
+        j++;
+    start = j;
+    if  (check_after_d(v->new_map, i, j) == 1)
+        ft_puterror("Error: in rgb numbers\n", 2);
+    while (v->new_map[i][j] && v->new_map[i][j] != ' ')
+    {
+        if (check_digit(v->new_map, i, j) == 1)
+            ft_puterror("Error: in rgb numbers\n", 2);
+        j++;
+    }
+    check_rgb_range(v, i, start);
+}
 
 void    is_rgb_valid(t_var *v)
 {
-    int i = 0;
-    int j = 0;
-    int start = 0;
+    int i;
+    int j;
 
+    i = 0;
+    j = 0;
+    v->flag_F = 0;
+    v->flag_C = 0;
     while (i < v->i)
     {
         j = 0;
         while (v->new_map[i][j])
         {
             if (v->new_map[i][j] == 'C' || v->new_map[i][j] == 'F')
-            {
-                if (is_comma(v->new_map, i, j) == 1)
-                    ft_puterror("Error: in rgb numbers\n", 2);
-                j++;
-                while(v->new_map[i][j] && v->new_map[i][j] == ' ')
-                    j++;
-                start = j;
-                if  (check_after_d(v->new_map, i, j) == 1)
-                    ft_puterror("Error: in rgb numbers\n", 2);
-                while(v->new_map[i][j] && v->new_map[i][j] != ' ')
-                {
-                    if (check_digit(v->new_map, i, j) == 1)
-                        ft_puterror("Error: in rgb numbers\n", 2);
-                    j++;
-                }
-                check_id_range(v, i, start);
-            }
+                start_parser(v, i, j);
             j++;
         }
-        if (v->new_map[i][j] == 'F')
-            break;
         i++;
     }
+    if (v->flag_C < 1 || v->flag_F < 1 )
+        ft_puterror("Error: rgb identifiers is missing\n", 2);
 }
 
 void is_path_valid(t_var *v)
@@ -188,7 +205,30 @@ void is_path_valid(t_var *v)
     int fd03 = open(s[3], O_DIRECTORY);
     if (fd3 == -1 || fd03 != -1)
         ft_puterror("Error: Failed to open file path 3\n", 2);
+    index = 0;
+    while(s[index])
+        free(s[index++]);
+}
 
+void    check_id_help(t_var *v, int i, int n)
+{
+    char *s;
+    int len;
+
+    len = n;
+    while(v->new_map[i][n] && v->new_map[i][n] != '.' && v->new_map[i][n - 1] != 'C' && v->new_map[i][n - 1] != 'F')
+    {
+        if (v->new_map[i][n] != ' ')
+            return(ft_puterror("Error: in the type identifiers!\n", 2));
+        n++;
+    }
+    s = ft_substr(v->new_map[i], 0, len);
+    if (ft_strcmp(s, "NO") != 0 && ft_strcmp(s, "SO") != 0   
+        && ft_strcmp(s, "WE") != 0 && ft_strcmp(s, "EA") != 0 && ft_strcmp(s, "C") != 0 && ft_strcmp(s, "F") != 0)
+            return(ft_puterror("Error: in the type identifiers!\n", 2), free(s));
+    else
+        v->flag++;
+    free(s);
 }
 
 int check_id(t_var *v)
@@ -197,10 +237,8 @@ int check_id(t_var *v)
     int j = 0;
     v->i = 0;
     v->j = 0;
-    int flag = 0;
-    int len = 0;
     int n = 0;
-    char    *s;
+    v->flag = 0;
 
     search_map(v->new_map, v);
     while (i < v->i)
@@ -215,23 +253,11 @@ int check_id(t_var *v)
                 j++;
             while (v->new_map[i][n] && v->new_map[i][n] != ' ')
                 n++;
-            len = n;
-            while(v->new_map[i][n] && v->new_map[i][n] != '.' && v->new_map[i][n - 1] != 'C' && v->new_map[i][n - 1] != 'F')
-            {
-                if (v->new_map[i][n] != ' ')
-                    return(ft_puterror("Error: in the type identifiers!\n", 2), 1);
-                n++;
-            }
-            s = ft_substr(v->new_map[i], 0, len);
-            if (ft_strcmp(s, "NO") != 0 && ft_strcmp(s, "SO") != 0   
-                && ft_strcmp(s, "WE") != 0 && ft_strcmp(s, "EA") != 0 && ft_strcmp(s, "C") != 0 && ft_strcmp(s, "F") != 0)
-                    return(ft_puterror("Error: in the type identifiers!\n", 2), 1);
-            else
-                flag++;
+            check_id_help(v, i, n);
         }
         i++;
     }
-    if (flag < 6)
+    if (v->flag < 6)
         return(ft_puterror("Error: one of the type identifiers is missing!\n", 2), 1);
     is_path_valid(v);
     is_rgb_valid(v);

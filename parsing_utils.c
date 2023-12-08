@@ -1,5 +1,16 @@
 #include "cub3d.h"
 
+void    count_id(t_var *v, int i, int j)
+{
+    if (v->new_map[i][j] == 'C')
+        v->flag_C++;
+    else
+    {
+        if (v->new_map[i][j] == 'F')
+            v->flag_F++;
+    }
+}
+
 int check_down(char **map, int i, int j, t_var *v)
 {
     while (i < v->map_len && map[i][j] != '1' && map[i][j] != ' ')
