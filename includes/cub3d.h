@@ -4,7 +4,8 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include <fcntl.h>
-#include "get_next_line/get_next_line.h"
+#include "../get_next_line/get_next_line.h"
+#include "../Libft/libft.h"
 #include "/Users/abazerou/Desktop/MLX42/include/MLX42/MLX42.h"
 
 //****** PLAYER DIRECTION PATHS ******
@@ -22,16 +23,22 @@ typedef struct s_var
     char *new_line;
     char **numbers;
     char *s;
+    char *str[4];
     int fd;
     int fd1;
     int i;
     int j;
+    int n;
+    int x;
+    int y;
+    int index;
     int flag;
     int map_len;
     int map_pos;
     int player_pos;
     int flag_F;
     int flag_C;
+    int start;
     size_t big_line;
     size_t len_s;
     t_rgb *rgb;
@@ -45,7 +52,6 @@ typedef struct s_paths
     char *WE;
     char *EA;
 }t_paths;
-
 
 //******** MLX STRUCT *****************
 typedef struct s_mlx
@@ -79,11 +85,19 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int	    ft_strcmp(char *s1, char *s2);
 void    search_map(char **map, t_var *v);
 int     check_digit(char **str, int i, int j);
-int	    ft_isdigit(int c);
-char	**ft_split(char const *s, char c);
-int	    ft_atoi(const char *str);
 void    count_id(t_var *v, int i, int j);
 void    start_parser(t_var *v, int i, int j);
+int     check_id(t_var *v);
+void    get_player_pos(t_var *v);
+int     is_comma(char **str, int i, int j);
+int     check_digit(char **str, int i, int j);
+int     check_after_d(char **str, int i, int j);
+void    is_opened(char *s[]);
+void    check_rgb_range(t_var *v, int i , int j);
+void    is_range_valid(t_var *v, char **numbers);
+void    is_rgb_valid(t_var *v);
+void    check_id_help(t_var *v, int i, int n);
+void    ft_free(char *s[]);
 
 
 #endif

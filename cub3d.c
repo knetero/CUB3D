@@ -1,4 +1,16 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/09 15:28:55 by abazerou          #+#    #+#             */
+/*   Updated: 2023/12/09 16:20:45 by abazerou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "includes/cub3d.h"
 
 int    read_map(t_var *v)
 {
@@ -92,8 +104,8 @@ int main(int ac, char **av)
     {
         printf("%s\n", v.new_map[v.i++]);
     }
-    put_pixels(&mlx_d, &v);
-    mlx_loop(mlx_d.mlx);
+    // put_pixels(&mlx_d, &v);
+    // mlx_loop(mlx_d.mlx);
     free(v.map);
     ft_freetab(v.new_map);
 }

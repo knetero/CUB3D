@@ -1,7 +1,7 @@
-SO               ./textures/SO
-EA            ./textures/EA
-WE       ./textures/WE
 NO                            ./textures/NO
+SO               ./textures/SO
+WE       ./textures/WE
+EA            ./textures/EA
 
 F 8,255,255
 C 4,26,30

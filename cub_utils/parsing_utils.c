@@ -1,4 +1,16 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/09 16:32:54 by abazerou          #+#    #+#             */
+/*   Updated: 2023/12/09 16:32:58 by abazerou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/cub3d.h"
 
 void    count_id(t_var *v, int i, int j)
 {
@@ -54,7 +66,6 @@ void	parse_path(char **map, t_var *v)
 {
 	int i = 0;
 	int j = 0;
-    // printf("%d\n", v->map_pos);
     i = v->map_pos;
 	while (map[i])
 	{
