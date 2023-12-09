@@ -99,5 +99,8 @@ void    is_rgb_valid(t_var *v);
 void    check_id_help(t_var *v, int i, int n);
 void    ft_free(char *s[]);
 
+//******** GRAPHICS ***********
+
+void    put_pixels(t_mlx *mlx_d, t_var *v);
 
 #endif

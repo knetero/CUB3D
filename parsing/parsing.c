@@ -6,7 +6,7 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:28:47 by abazerou          #+#    #+#             */
-/*   Updated: 2023/12/09 16:20:18 by abazerou         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:21:20 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void    parsing(t_var *v)
 {
+    t_rgb rgb;
+
+    v->rgb = &rgb;
     v->new_map = fill_empty(v->new_map, v);
     check_id(v);
     check_valid_chars(v->new_map, v);
