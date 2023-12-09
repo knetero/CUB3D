@@ -45,7 +45,6 @@ void    put_pixels(t_mlx *mlx_d, t_var *v)
                 j = 0;
                 while (j < 32)
                 {
-                    printf("   ***********************%c\n", v->new_map[v->i][v->j]);
                     if (v->new_map[v->i][v->j] == '1')
                         mlx_put_pixel(mlx_d->image,(v->j * 32) + j, (v->i - v->map_pos) * 32 + i,0xCCFFE5);
                     else if (v->new_map[v->i][v->j] == 'N' || v->new_map[v->i][v->j] == 'S' 
@@ -69,8 +68,10 @@ int main(int ac, char **av)
     // atexit(f);
     t_var v;
     t_mlx mlx_d;
+    t_rgb rgb;
     
     mlx_d.v = &v;
+    v.rgb = &rgb;
     v.map_len = 0;
     v.big_line = 0;
     v.i = 0;

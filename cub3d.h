@@ -7,12 +7,20 @@
 #include "get_next_line/get_next_line.h"
 #include "/Users/abazerou/Desktop/MLX42/include/MLX42/MLX42.h"
 
+//****** PLAYER DIRECTION PATHS ******
+typedef struct s_rgb
+{
+    int floor[3];
+    int ceiling[3];
+}t_rgb;
+
 //******** PARSING STRUCT *****************
 typedef struct s_var
 {
     char **map;
     char **new_map;
     char *new_line;
+    char **numbers;
     char *s;
     int fd;
     int fd1;
@@ -26,7 +34,18 @@ typedef struct s_var
     int flag_C;
     size_t big_line;
     size_t len_s;
+    t_rgb *rgb;
 }t_var;
+
+//****** PLAYER DIRECTION PATHS ******
+typedef struct s_paths
+{
+    char *NO;
+    char *SO;
+    char *WE;
+    char *EA;
+}t_paths;
+
 
 //******** MLX STRUCT *****************
 typedef struct s_mlx

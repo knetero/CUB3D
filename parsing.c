@@ -44,10 +44,11 @@ int check_after_d(char **str, int i, int j)
     return (0);
 }
 
-void    is_range_valid(char **numbers)
+void    is_range_valid(t_var *v, char **numbers)
 {
     int i;
     int id_number;
+    // t_rgb rgb;
 
     i = 0;
     id_number = 0;
@@ -61,6 +62,18 @@ void    is_range_valid(char **numbers)
         }
         i++;
     }
+    i = 0;
+    while (i < 3)
+    {
+        id_number = ft_atoi(numbers[i]);
+        if (v->flag != 1)
+            v->rgb->floor[i] = id_number;
+        else
+            v->rgb->ceiling[i] = id_number;
+        i++;
+    }
+    v->flag = 1;
+    // exit(0);
 }
 
 void    check_rgb_range(t_var *v, int i , int j)
@@ -90,7 +103,7 @@ void    check_rgb_range(t_var *v, int i , int j)
         ft_freetab(numbers);
         ft_puterror("Error: in rgb numbers\n", 2);
     }
-    is_range_valid(numbers);
+    is_range_valid(v, numbers);
     ft_freetab(numbers);
 }
 
@@ -124,6 +137,7 @@ void    is_rgb_valid(t_var *v)
 
     i = 0;
     j = 0;
+    v->flag = 0;
     v->flag_F = 0;
     v->flag_C = 0;
     while (i < v->i)
@@ -139,6 +153,33 @@ void    is_rgb_valid(t_var *v)
     }
     if (v->flag_C < 1 || v->flag_F < 1 )
         ft_puterror("Error: rgb identifiers is missing\n", 2);
+}
+
+void    init_path(char *s[])
+{
+    t_paths paths;
+    int index;
+    int i;
+
+    index = 0;
+    i = 0;
+    while (index < 4)
+    {
+        i = 0;
+        while (s[index][i]) 
+        {
+            if (s[index][i] == 'N' && s[index][i + 1] == 'O')
+                paths.NO = s[index];
+            else if (s[index][i] == 'S' && s[index][i + 1] == 'O')
+                paths.SO = s[index];
+            else if (s[index][i] == 'W' && s[index][i + 1] == 'E')
+                paths.WE = s[index];
+            else if (s[index][i] == 'E' && s[index][i + 1] == 'A')
+                paths.EA = s[index];
+            i++;
+        }
+        index++;
+    }
 }
 
 void is_path_valid(t_var *v)
@@ -176,7 +217,7 @@ void is_path_valid(t_var *v)
                 n++;
             }
             s[index] = ft_substr(v->new_map[i], j, x);
-            if (ft_strcmp(s[index], "textures/EA") == 0)
+            if (index == 3)
                 break;
             index++;
         }
@@ -184,10 +225,11 @@ void is_path_valid(t_var *v)
     }
     index++;
     s[index] = NULL;
-    printf("--------> %s\n", s[0]);
-    printf("--------> %s\n", s[1]);
-    printf("--------> %s\n", s[2]);
-    printf("--------> %s\n", s[3]);
+    
+    // printf("--------> %s\n", s[0]);
+    // printf("--------> %s\n", s[1]);
+    // printf("--------> %s\n", s[2]);
+    // printf("--------> %s\n", s[3]);
 
     int fd0 = open(s[0], O_RDONLY);
     int fd00 = open(s[0], O_DIRECTORY);
@@ -205,7 +247,22 @@ void is_path_valid(t_var *v)
     int fd03 = open(s[3], O_DIRECTORY);
     if (fd3 == -1 || fd03 != -1)
         ft_puterror("Error: Failed to open file path 3\n", 2);
+    init_path(s);
+    // while (index < 4)
+    // {   
+    //     if (ft_strcmp(s[index], "textures/NO") == 0)
+    //         paths.NO = s[index];
+    //     else if (ft_strcmp(s[index], "textures/SO") == 0)
+    //         paths.SO = s[index];
+    //     else if (ft_strcmp(s[index], "textures/WE") == 0)
+    //         paths.WE = s[index];
+    //     else if (ft_strcmp(s[index], "textures/EA") == 0)
+    //         paths.EA = s[index];
+    //     index++;
+    // }
+    // printf("********* %d\n", index);
     index = 0;
+    // printf("-------------------- %s\n", paths.NO);
     while(s[index])
         free(s[index++]);
 }
