@@ -6,7 +6,7 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:28:26 by abazerou          #+#    #+#             */
-/*   Updated: 2023/12/10 17:07:56 by abazerou         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:49:42 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	init_path(char *s[])
 		while (s[index][i])
 		{
 			if (s[index][i] == 'N' && s[index][i + 1] == 'O')
-				paths.NO = s[index];
+				paths.no = s[index];
 			else if (s[index][i] == 'S' && s[index][i + 1] == 'O')
-				paths.SO = s[index];
+				paths.so = s[index];
 			else if (s[index][i] == 'W' && s[index][i + 1] == 'E')
-				paths.WE = s[index];
+				paths.we = s[index];
 			else if (s[index][i] == 'E' && s[index][i + 1] == 'A')
-				paths.EA = s[index];
+				paths.ea = s[index];
 			i++;
 		}
 		index++;

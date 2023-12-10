@@ -6,11 +6,22 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:41:31 by abazerou          #+#    #+#             */
-/*   Updated: 2023/12/10 17:10:08 by abazerou         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:46:31 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	count_id(t_var *v, int i, int j)
+{
+	if (v->new_map[i][j] == 'C')
+		v->flag_c++;
+	else
+	{
+		if (v->new_map[i][j] == 'F')
+			v->flag_f++;
+	}
+}
 
 void	is_rgb_valid(t_var *v)
 {
@@ -20,8 +31,8 @@ void	is_rgb_valid(t_var *v)
 	i = 0;
 	j = 0;
 	v->flag = 0;
-	v->flag_F = 0;
-	v->flag_C = 0;
+	v->flag_f = 0;
+	v->flag_c = 0;
 	while (i < v->i)
 	{
 		j = 0;
@@ -33,7 +44,7 @@ void	is_rgb_valid(t_var *v)
 		}
 		i++;
 	}
-	if (v->flag_C < 1 || v->flag_F < 1 )
+	if (v->flag_c < 1 || v->flag_f < 1 )
 		ft_puterror("Error: rgb identifiers is missing\n", 2);
 }
 

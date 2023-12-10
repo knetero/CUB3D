@@ -6,22 +6,11 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:32:54 by abazerou          #+#    #+#             */
-/*   Updated: 2023/12/10 17:15:50 by abazerou         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:37:08 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void	count_id(t_var *v, int i, int j)
-{
-	if (v->new_map[i][j] == 'C')
-		v->flag_C++;
-	else
-	{
-		if (v->new_map[i][j] == 'F')
-			v->flag_F++;
-	}
-}
 
 int	check_down(char **map, int i, int j, t_var *v)
 {
