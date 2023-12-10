@@ -6,7 +6,7 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 17:53:05 by abazerou          #+#    #+#             */
-/*   Updated: 2023/12/10 17:54:57 by abazerou         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:56:18 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		is_comma(char **str, int i, int j);
 int		check_digit(char **str, int i, int j);
 int		check_after_d(char **str, int i, int j);
 void	is_opened(char *s[]);
-void	check_rgb_range(t_var *v, int i , int j);
+void	check_rgb_range(t_var *v, int i, int j);
 void	is_range_valid(t_var *v, char **numbers);
 void	is_rgb_valid(t_var *v);
 void	check_id_help(t_var *v, int i, int n);
