@@ -31,6 +31,7 @@ typedef struct s_var
     int n;
     int x;
     int y;
+    int v;
     int index;
     int flag;
     int map_len;
@@ -44,7 +45,7 @@ typedef struct s_var
     t_rgb *rgb;
 }t_var;
 
-//****** PLAYER DIRECTION PATHS ******
+//****** PLAYER DIRECTION PATHS ********
 typedef struct s_paths
 {
     char *NO;
@@ -53,7 +54,7 @@ typedef struct s_paths
     char *EA;
 }t_paths;
 
-//******** MLX STRUCT *****************
+//******** MLX STRUCT ********
 typedef struct s_mlx
 {
     mlx_t* mlx;
@@ -64,7 +65,7 @@ typedef struct s_mlx
 
 }t_mlx;
 
-//************** PARSING *****************
+//*********** PARSING *************
 void    parsing(t_var *v);
 void	ft_puterror(char *s, int fd);
 void    check_ex(char *s);

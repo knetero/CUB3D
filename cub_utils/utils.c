@@ -6,19 +6,19 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:32:40 by abazerou          #+#    #+#             */
-/*   Updated: 2023/12/09 16:32:43 by abazerou         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:21:40 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void    ft_free(char *s[])
+void	ft_free(char *s[])
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(s[i])
-        free(s[i++]);
+	i = 0;
+	while (s[i])
+		free(s[i++]);
 }
 
 int	ft_strcmp(char *s1, char *s2)
@@ -69,14 +69,16 @@ void	ft_puterror(char *s, int fd)
 		write(fd, &s[i], 1);
 		i++;
 	}
-    exit(1);
+	exit (1);
 }
 
-void    ft_freetab(char **map)
+void	ft_freetab(char **map)
 {
-    int i = 0;
-    while(map[i])
-        free(map[i++]);
-    free(map);
+	int	i;
+
+	i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);
 }
 
