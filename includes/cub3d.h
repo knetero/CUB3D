@@ -6,7 +6,7 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 17:53:05 by abazerou          #+#    #+#             */
-/*   Updated: 2023/12/10 17:56:18 by abazerou         ###   ########.fr       */
+/*   Updated: 2024/01/01 10:18:27 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 # include <fcntl.h>
 # include "../get_next_line/get_next_line.h"
 # include "../Libft/libft.h"
-# include "/Users/abazerou/Desktop/MLX42/include/MLX42/MLX42.h"
+# include <mlx.h>
+# define WIDTH 1000
+# define HEIGHT 1000
+# define SIZE 500
+
 
 //****** PLAYER DIRECTION PATHS ******
 typedef struct s_rgb
@@ -27,6 +31,30 @@ typedef struct s_rgb
 	int	ceiling[3];
 
 }	t_rgb;
+
+//******* TEXTURES STRUCT ********
+typedef struct s_img
+{
+	int				tofx;
+	int				tofy;
+	void			*img;
+	unsigned int	*addr;
+	unsigned 		*color;
+	int				bitppixel;
+	int				line_length;
+	int				endian;
+	int 			width;
+	int				height;
+}	t_img;
+
+//****** PLAYER DIRECTION PATHS ********
+typedef struct s_paths
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+}	t_paths;
 
 //******** PARSING STRUCT *****************
 typedef struct s_var
@@ -56,30 +84,27 @@ typedef struct s_var
 	size_t	big_line;
 	size_t	len_s;
 	t_rgb	*rgb;
-
+	t_paths	*paths;
+	t_img no;
+	t_img so;
+	t_img we;
+	t_img ea;
 }	t_var;
 
-//****** PLAYER DIRECTION PATHS ********
-typedef struct s_paths
-{
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-}	t_paths;
 
-//******** MLX STRUCT ********
+
+
+//******** MLX WINDOW ********
 typedef struct s_mlx
 {
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-	int			x;
+	void		*mlx;
+	void		*mlx_win;
 	int			y;
 	t_var		*v;
 
 }	t_mlx;
 
-//*********** PARSING *************
+//*********** PARSING ***********
 void	parsing(t_var *v);
 void	ft_puterror(char *s, int fd);
 void	check_ex(char *s);
@@ -113,9 +138,10 @@ void	is_range_valid(t_var *v, char **numbers);
 void	is_rgb_valid(t_var *v);
 void	check_id_help(t_var *v, int i, int n);
 void	ft_free(char *s[]);
+void	init_path(t_var *v, char *s[]);
 
 //******** GRAPHICS ***********
 
-void	put_pixels(t_mlx *mlx_d, t_var *v);
+// void	put_pixels(t_mlx *mlx_d, t_var *v);
 
 #endif

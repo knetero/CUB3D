@@ -6,18 +6,24 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:28:26 by abazerou          #+#    #+#             */
-/*   Updated: 2023/12/10 17:49:42 by abazerou         ###   ########.fr       */
+/*   Updated: 2024/01/01 10:16:26 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_path(char *s[])
+void	init_path(t_var *v, char *s[])
 {
-	t_paths	paths;
 	int		index;
 	int		i;
 
+	v->paths = malloc(sizeof(t_paths));
+	if(!v->paths)
+		ft_puterror("Error : Failed to allocate Path struct", 2);
+	v->paths->no = NULL;
+    v->paths->so = NULL;
+    v->paths->we = NULL;
+    v->paths->ea = NULL;
 	index = 0;
 	i = 0;
 	while (index < 4)
@@ -26,17 +32,21 @@ void	init_path(char *s[])
 		while (s[index][i])
 		{
 			if (s[index][i] == 'N' && s[index][i + 1] == 'O')
-				paths.no = s[index];
+				v->paths->no = s[index];
 			else if (s[index][i] == 'S' && s[index][i + 1] == 'O')
-				paths.so = s[index];
+				v->paths->so = s[index];
 			else if (s[index][i] == 'W' && s[index][i + 1] == 'E')
-				paths.we = s[index];
+				v->paths->we = s[index];
 			else if (s[index][i] == 'E' && s[index][i + 1] == 'A')
-				paths.ea = s[index];
+				v->paths->ea = s[index];
 			i++;
 		}
 		index++;
 	}
+	printf("-------------> PATH : %s\n", v->paths->ea);
+	printf("-------------> PATH : %s\n", v->paths->no);
+	printf("-------------> PATH : %s\n", v->paths->we);
+	printf("-------------> PATH : %s\n", v->paths->so);
 }
 
 void	p_validation_help(t_var *v, int i)
@@ -95,7 +105,7 @@ void	is_path_valid(t_var *v)
 	v->index++;
 	v->str[v->index] = NULL;
 	is_opened(v->str);
-	init_path(v->str);
+	init_path(v, v->str);
 	ft_free(v->str);
 }
 

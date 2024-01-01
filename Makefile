@@ -14,10 +14,10 @@ HEADERS = includes/cub3d.h get_next_line/get_next_line.h Libft/libft.h
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADERS)
-	$(CC) $(FLAGS) $(OBJS) includes/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -o $@
+	$(CC) $(FLAGS) $(OBJS) -lmlx -framework OpenGL -framework AppKit -Ofast -o $@
 
 %.o: %.c $(HEADERS)
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -Imlx -c $< -o $@
 
 clean:
 	rm -f  $(OBJS)
