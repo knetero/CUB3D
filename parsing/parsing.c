@@ -6,22 +6,21 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:28:47 by abazerou          #+#    #+#             */
-/*   Updated: 2023/12/10 17:05:11 by abazerou         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:44:27 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	parsing(t_var *v)
+void	parsing(t_var *v, t_paths **path)
 {
 	t_rgb	rgb;
 
 	v->rgb = &rgb;
 	v->new_map = fill_empty(v->new_map, v);
-	check_id(v);
+	check_id(v, path);
 	check_valid_chars(v->new_map, v);
 	parse_path(v->new_map, v);
-	get_player_pos(v);
 }
 
 int	count_directions(char **map, t_var *v)
@@ -48,17 +47,15 @@ int	count_directions(char **map, t_var *v)
 
 void	check_valid_chars(char **m, t_var *v)
 {
-	int	found;
-
 	v->i = 0;
 	v->j = 0;
-	found = 0;
+	v->found = 0;
 	v->map_pos = 0;
 	search_map(m, v);
 	v->map_pos = v->i;
 	while (m[v->i])
 	{
-		if (found == 1)
+		if (v->found == 1)
 			v->j = 0;
 		while (m[v->i][v->j])
 		{
@@ -69,7 +66,7 @@ void	check_valid_chars(char **m, t_var *v)
 				ft_puterror("Error: Invalid map\n", 2);
 			v->j++;
 		}
-		found = 1;
+		v->found = 1;
 		v->i++;
 	}
 	v->i = v->map_pos;
@@ -92,24 +89,22 @@ void	check_ex(char *s)
 
 char	**fill_empty(char **map, t_var *v)
 {
-	size_t	j;
-
-	j = 0;
+	v->j = 0;
 	v->i = 0;
 	v->len_s = 0;
 	while (v->i < v->map_len)
 	{
 		if (ft_strlen(map[v->i]) <= v->big_line)
 		{
-			j = 0;
-			while (map[v->i][j] && map[v->i][j] != '\n')
-				j++;
-			map[v->i][j] = '\0';
-			v->len_s = j;
-			v->new_line = malloc(sizeof(char) * (v->big_line - j));
+			v->j = 0;
+			while (map[v->i][v->j] && map[v->i][v->j] != '\n')
+				v->j++;
+			map[v->i][v->j] = '\0';
+			v->len_s = v->j;
+			v->new_line = malloc(sizeof(char) * (v->big_line - v->j));
 			if (!v->new_line)
 				return (NULL);
-			j = 0;
+			v->j = 0;
 			map = join_space(map, v);
 			free(v->new_line);
 			v->new_line = NULL;

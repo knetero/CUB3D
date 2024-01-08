@@ -6,42 +6,11 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:27:36 by abazerou          #+#    #+#             */
-/*   Updated: 2023/12/10 17:21:56 by abazerou         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:45:00 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void	get_player_pos(t_var *v)
-{
-	int	i;
-	int	j;
-	int	flag;
-
-	i = 0;
-	j = 0;
-	flag = 0;
-	v->player_pos = 0;
-	i = v->map_pos;
-	while (v->new_map[i])
-	{
-		j = 0;
-		while (v->new_map[i][j])
-		{
-			if (v->new_map[i][j] == 'N' || v->new_map[i][j] == 'E'
-				|| v->new_map[i][j] == 'S' || v->new_map[i][j] == 'W')
-			{
-				v->player_pos = j;
-				flag = 1;
-			}
-			j++;
-		}
-		v->player_pos += j;
-		if (flag == 1)
-			break ;
-		i++;
-	}
-}
 
 void	search_map(char **map, t_var *v)
 {

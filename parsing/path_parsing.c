@@ -6,47 +6,29 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:28:26 by abazerou          #+#    #+#             */
-/*   Updated: 2024/01/01 10:16:26 by abazerou         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:37:40 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_path(t_var *v, char *s[])
+void	init_path(char *s[], t_paths **paths)
 {
 	int		index;
 	int		i;
 
-	v->paths = malloc(sizeof(t_paths));
-	if(!v->paths)
-		ft_puterror("Error : Failed to allocate Path struct", 2);
-	v->paths->no = NULL;
-    v->paths->so = NULL;
-    v->paths->we = NULL;
-    v->paths->ea = NULL;
+	(*paths)->no = NULL;
+	(*paths)->so = NULL;
+	(*paths)->we = NULL;
+	(*paths)->ea = NULL;
 	index = 0;
 	i = 0;
 	while (index < 4)
 	{
 		i = 0;
-		while (s[index][i])
-		{
-			if (s[index][i] == 'N' && s[index][i + 1] == 'O')
-				v->paths->no = s[index];
-			else if (s[index][i] == 'S' && s[index][i + 1] == 'O')
-				v->paths->so = s[index];
-			else if (s[index][i] == 'W' && s[index][i + 1] == 'E')
-				v->paths->we = s[index];
-			else if (s[index][i] == 'E' && s[index][i + 1] == 'A')
-				v->paths->ea = s[index];
-			i++;
-		}
+		fill_path(s, paths, index, i);
 		index++;
 	}
-	printf("-------------> PATH : %s\n", v->paths->ea);
-	printf("-------------> PATH : %s\n", v->paths->no);
-	printf("-------------> PATH : %s\n", v->paths->we);
-	printf("-------------> PATH : %s\n", v->paths->so);
 }
 
 void	p_validation_help(t_var *v, int i)
@@ -79,7 +61,7 @@ void	get_path(t_var *v, int i, int j)
 	}
 }
 
-void	is_path_valid(t_var *v)
+void	is_path_valid(t_var *v, t_paths **path)
 {
 	v->v = 0;
 	v->index = 0;
@@ -105,11 +87,10 @@ void	is_path_valid(t_var *v)
 	v->index++;
 	v->str[v->index] = NULL;
 	is_opened(v->str);
-	init_path(v, v->str);
-	ft_free(v->str);
+	init_path(v->str, path);
 }
 
-int	check_id(t_var *v)
+int	check_id(t_var *v, t_paths **path)
 {
 	v->x = 0;
 	v->i = 0;
@@ -119,9 +100,7 @@ int	check_id(t_var *v)
 	{
 		v->y = 0;
 		v->n = 0;
-		while (v->new_map[v->x][v->y] && (v->new_map[v->x][v->y] == ' '
-			|| v->new_map[v->x][v->y] == '\t'))
-			v->y++;
+		helper(v);
 		if (v->new_map[v->x][v->y] != '\0')
 		{
 			while (v->new_map[v->x][v->y] && v->new_map[v->x][v->y] != '.')
@@ -134,7 +113,7 @@ int	check_id(t_var *v)
 	}
 	if (v->flag < 6)
 		return (ft_puterror("Error: identifier is missing!\n", 2), 1);
-	is_path_valid(v);
+	is_path_valid(v, path);
 	is_rgb_valid(v);
 	return (0);
 }
