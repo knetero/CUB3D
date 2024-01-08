@@ -6,7 +6,7 @@
 /*   By: abazerou <abazerou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 11:41:45 by abazerou          #+#    #+#             */
-/*   Updated: 2024/01/08 21:08:01 by abazerou         ###   ########.fr       */
+/*   Updated: 2024/01/08 21:21:44 by abazerou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	rendr_util(t_struct **s, t_walls *wall, t_ray *ray)
 {
 	wall->correct_dis = ray->distance * cos (ray->ray_angle - (*s)->rot_angle);
 	wall->distanceproj = ((*s)->win_width / 2) / tan((*s)->fov_angle / 2);
-	wall->pwheight = ((*s)->tail_size / wall->correct_dis) * wall->distanceProj;
+	wall->pwheight = ((*s)->tail_size / wall->correct_dis) * wall->distanceproj;
 	wall->w_stripeheight = (int)wall->pwheight;
 	wall->top_pix = ((*s)->win_higth / 2) - (wall->w_stripeheight / 2);
 	wall->wbottompx = ((*s)->win_higth / 2) + (wall->w_stripeheight / 2);
